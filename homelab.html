@@ -7,6 +7,9 @@
 <meta name="description" content="Live status dashboard for Chris Duarte's homelab.">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self' https://raw.githubusercontent.com; base-uri 'self'; frame-ancestors 'none'; object-src 'none'">
+<link rel="canonical" href="https://chris-duarte.com/homelab.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#0a0e14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,6 +18,8 @@
 <body>
 
 <div class="bg-glow"></div>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <header class="site-header">
   <nav class="nav container">
@@ -30,7 +35,7 @@
   </nav>
 </header>
 
-<main>
+<main id="main-content">
   <div class="legal-content">
     <a href="index.html#projects" class="back-link">&larr; Back to projects</a>
     <h1>Homelab Status</h1>
@@ -42,9 +47,11 @@
       it checks back in.
     </div>
 
+    <div class="host-stats" id="hostStats" hidden></div>
+
     <div class="status-grid" id="statusGrid"></div>
 
-    <p style="margin-top: 40px; font-size: 0.85rem;">
+    <p class="homelab-note">
       <!-- EDIT ME: say as much or as little about the hardware as you want -->
       This tracks services running on my homelab &mdash; a small home server I'm
       building out and learning on. Status here is pushed out by the homelab

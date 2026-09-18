@@ -48,8 +48,11 @@ DNS changes can take a few minutes to a few hours to propagate. Once it does, go
 ## Structure
 
 ```
-index.html   – page content
-style.css    – dark theme styling
-script.js    – nav toggle + scroll animations
-CNAME        – tells GitHub Pages which custom domain to serve
+index.html    – page content
+style.css     – dark theme styling
+script.js     – nav toggle + scroll animations
+favicon.svg   – browser tab icon
+robots.txt    – crawler access + sitemap pointer
+sitemap.xml   – page list for search engines
+CNAME         – tells GitHub Pages which custom domain to serve
 ```

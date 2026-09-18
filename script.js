@@ -1,3 +1,7 @@
+// Marks that JS is running, so the fade-in CSS only hides content when
+// something will actually reveal it again (see .js-fade-ready in style.css).
+document.documentElement.classList.add('js-fade-ready');
+
 // Mobile nav toggle
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');

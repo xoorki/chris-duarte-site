@@ -64,6 +64,40 @@ check_http() {
   [[ "$code" =~ ^[23] ]]
 }
 
+# ---- Host stats (CPU / memory / uptime) — best-effort, shown on the site
+#      as a small dashboard above the per-service list ----
+host_cpu_percent() {
+  read -r _ u1 n1 s1 i1 iw1 irq1 sirq1 st1 _ < /proc/stat
+  sleep 1
+  read -r _ u2 n2 s2 i2 iw2 irq2 sirq2 st2 _ < /proc/stat
+  local idle1=$((i1 + iw1)) idle2=$((i2 + iw2))
+  local total1=$((u1 + n1 + s1 + i1 + iw1 + irq1 + sirq1 + st1))
+  local total2=$((u2 + n2 + s2 + i2 + iw2 + irq2 + sirq2 + st2))
+  local totald=$((total2 - total1)) idled=$((idle2 - idle1))
+  [[ "$totald" -gt 0 ]] && echo $(( (100 * (totald - idled)) / totald ))
+}
+
+host_mem_percent() {
+  free 2>/dev/null | awk '/^Mem:/ { printf "%.0f", ($2 - $7) / $2 * 100 }'
+}
+
+host_uptime() {
+  uptime -p 2>/dev/null | sed 's/^up //'
+}
+
+host_cpu=$(host_cpu_percent 2>/dev/null || true)
+host_mem=$(host_mem_percent 2>/dev/null || true)
+host_up=$(host_uptime 2>/dev/null || true)
+
+host_json=$(jq -n \
+  --arg cpu "${host_cpu:-}" \
+  --arg mem "${host_mem:-}" \
+  --arg uptime "${host_up:-}" \
+  '{}
+   + (if $cpu != "" then {cpu_percent: ($cpu | tonumber)} else {} end)
+   + (if $mem != "" then {mem_percent: ($mem | tonumber)} else {} end)
+   + (if $uptime != "" then {uptime: $uptime} else {} end)')
+
 services_json="[]"
 for entry in "${SERVICES[@]}"; do
   IFS='|' read -r name type target <<< "$entry"
@@ -89,7 +123,8 @@ updated_at=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 payload=$(jq -n \
   --arg updated_at "$updated_at" \
   --argjson services "$services_json" \
-  '{updated_at:$updated_at, services:$services}')
+  --argjson host "$host_json" \
+  '{updated_at:$updated_at, services:$services, host:$host}')
 
 content_b64=$(printf '%s' "$payload" | base64 -w0)
 

@@ -15,6 +15,31 @@
 
 html { scroll-behavior: smooth; }
 
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 16px;
+  z-index: 300;
+  background: var(--accent);
+  color: #0a0e14;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus-visible {
+  top: 12px;
+  outline-color: var(--text);
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -488,6 +513,65 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 24px;
 }
 
+.host-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.host-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.host-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.host-card-label {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.host-card-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.host-card-uptime {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.host-card-uptime .host-card-value {
+  font-size: 0.95rem;
+}
+
+.host-bar-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bg-alt);
+  overflow: hidden;
+}
+
+.host-bar {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.host-bar-low { background: #22c55e; }
+.host-bar-mid { background: #eab308; }
+.host-bar-high { background: #ef4444; }
+
 .status-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -540,14 +624,23 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-dim);
 }
 
-/* Scroll fade-in */
+.homelab-note {
+  margin-top: 40px;
+  font-size: 0.85rem;
+}
+
+/* Scroll fade-in — only hidden once script.js confirms it can reveal it
+   again, so content stays visible if JS fails to load or run. */
 .fade-in {
-  opacity: 0;
-  transform: translateY(16px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.fade-in.visible {
+.js-fade-ready .fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.js-fade-ready .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
 }
