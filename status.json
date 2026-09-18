@@ -1,10 +1,15 @@
 {
   "updated_at": "2000-01-01T00:00:00Z",
+  "host": {
+    "cpu_percent": null,
+    "mem_percent": null,
+    "uptime": null
+  },
   "services": [
-    {
-      "name": "Homelab Server",
-      "status": "unknown",
-      "latency_ms": null
-    }
+    { "name": "Website", "status": "unknown", "latency_ms": null },
+    { "name": "Nextcloud", "status": "unknown", "latency_ms": null },
+    { "name": "Jellyfin", "status": "unknown", "latency_ms": null },
+    { "name": "Immich", "status": "unknown", "latency_ms": null },
+    { "name": "DNS", "status": "unknown", "latency_ms": null }
   ]
 }
