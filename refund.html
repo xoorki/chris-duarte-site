@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refund Policy — Chris Duarte</title>
+<meta name="description" content="Refund policy for chris-duarte.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="logo">chris<span class="accent">.</span>duarte</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="legal-content">
+    <a href="index.html" class="back-link">&larr; Back to site</a>
+    <h1>Refund Policy</h1>
+    <p class="updated"><!-- EDIT ME: keep this current --> Last updated: September 2026</p>
+
+    <p>
+      This site doesn't currently sell anything directly &mdash; there's no shop,
+      checkout, or online payment on it. So for now, there's nothing here to refund.
+    </p>
+
+    <h2>If that changes</h2>
+    <p>
+      <!-- EDIT ME: replace this section once/if you actually sell something,
+           e.g. custom PC builds, arranged separately from this site -->
+      If in the future I offer something for sale (for example, a custom PC build
+      arranged individually rather than through an online checkout), refund and
+      cancellation terms will be agreed in writing with you before any payment is
+      made, and will be described here once that's the case.
+    </p>
+
+    <h2>Questions</h2>
+    <p>
+      If you've paid for something and have a question about it, reach out via the
+      <a href="index.html#contact">Contact</a> section and I'll sort it out with you directly.
+    </p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> Chris Duarte. Built with HTML, CSS &amp; JS.</p>
+    <nav class="footer-links" aria-label="Legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="refund.html">Refund Policy</a>
+      <a href="cookies.html">Cookie Policy</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie notice" hidden>
+  <p>
+    This site doesn't use tracking or advertising cookies &mdash; just your
+    browser's local storage to remember you've seen this message.
+    <a href="cookies.html">Cookie Policy</a>
+  </p>
+  <button id="cookieAccept" class="btn btn-primary btn-small">Got it</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
