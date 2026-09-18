@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Chris Duarte</title>
+<meta name="description" content="Terms of service for chris-duarte.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="logo">chris<span class="accent">.</span>duarte</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="legal-content">
+    <a href="index.html" class="back-link">&larr; Back to site</a>
+    <h1>Terms of Service</h1>
+    <p class="updated"><!-- EDIT ME: keep this current --> Last updated: September 2026</p>
+
+    <p>
+      This is a personal portfolio site. These terms are intentionally short, but by
+      using this site you agree to them.
+    </p>
+
+    <h2>Use of this site</h2>
+    <p>
+      You're welcome to browse this site, read about the projects on it, and get in touch.
+      Please don't use it in a way that's unlawful, tries to disrupt or gain unauthorized
+      access to it, or scrapes it at a scale that impacts other visitors.
+    </p>
+
+    <h2>Content ownership</h2>
+    <p>
+      Unless otherwise noted, the writing, project descriptions, and design on this site
+      are mine. The source code for the site itself is open and available on
+      <a href="https://github.com/xoorki/chris-duarte-site" target="_blank" rel="noopener noreferrer">GitHub</a>
+      &mdash; feel free to look through it, but please don't present it as your own.
+    </p>
+
+    <h2>No warranty</h2>
+    <p>
+      This site is provided "as is," without warranties of any kind. It's a personal
+      project, not a product or professional service, and nothing on it should be taken
+      as professional, legal, or financial advice.
+    </p>
+
+    <h2>External links</h2>
+    <p>
+      This site links to third-party sites (like GitHub). I'm not responsible for the
+      content, policies, or practices of any site I don't control.
+    </p>
+
+    <h2>Limitation of liability</h2>
+    <p>
+      To the extent permitted by law, I'm not liable for any damages arising from your
+      use of, or inability to use, this site.
+    </p>
+
+    <h2>Changes</h2>
+    <p>
+      These terms may be updated occasionally. Continued use of the site after a change
+      means you accept the updated terms.
+    </p>
+
+    <h2>Governing law</h2>
+    <p>
+      <!-- EDIT ME: fill in your jurisdiction, e.g. "the laws of Ireland" -->
+      These terms are governed by the laws of [your country/region].
+    </p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> Chris Duarte. Built with HTML, CSS &amp; JS.</p>
+    <nav class="footer-links" aria-label="Legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="refund.html">Refund Policy</a>
+      <a href="cookies.html">Cookie Policy</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie notice" hidden>
+  <p>
+    This site doesn't use tracking or advertising cookies &mdash; just your
+    browser's local storage to remember you've seen this message.
+    <a href="cookies.html">Cookie Policy</a>
+  </p>
+  <button id="cookieAccept" class="btn btn-primary btn-small">Got it</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
