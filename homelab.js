@@ -8,6 +8,7 @@
   const grid = document.getElementById('statusGrid');
   const updatedEl = document.getElementById('statusUpdated');
   const staleNotice = document.getElementById('staleNotice');
+  const hostStats = document.getElementById('hostStats');
 
   if (!grid) return;
 
@@ -30,6 +31,82 @@
     if (status === 'up') return 'Online';
     if (status === 'down') return 'Offline';
     return 'Unknown';
+  }
+
+  function barLevel(percent) {
+    if (percent >= 85) return 'high';
+    if (percent >= 60) return 'mid';
+    return 'low';
+  }
+
+  function renderHost(host, stale) {
+    if (!hostStats) return;
+    hostStats.innerHTML = '';
+
+    if (!host || stale) {
+      hostStats.hidden = true;
+      return;
+    }
+    hostStats.hidden = false;
+
+    const items = [];
+    if (typeof host.cpu_percent === 'number') {
+      items.push({ label: 'CPU', percent: host.cpu_percent });
+    }
+    if (typeof host.mem_percent === 'number') {
+      items.push({ label: 'Memory', percent: host.mem_percent });
+    }
+
+    items.forEach((item) => {
+      const card = document.createElement('div');
+      card.className = 'host-card';
+
+      const top = document.createElement('div');
+      top.className = 'host-card-top';
+
+      const label = document.createElement('span');
+      label.className = 'host-card-label';
+      label.textContent = item.label;
+
+      const value = document.createElement('span');
+      value.className = 'host-card-value';
+      value.textContent = Math.round(item.percent) + '%';
+
+      top.appendChild(label);
+      top.appendChild(value);
+
+      const barTrack = document.createElement('div');
+      barTrack.className = 'host-bar-track';
+      const bar = document.createElement('div');
+      bar.className = 'host-bar host-bar-' + barLevel(item.percent);
+      bar.style.width = Math.max(0, Math.min(100, item.percent)) + '%';
+      barTrack.appendChild(bar);
+
+      card.appendChild(top);
+      card.appendChild(barTrack);
+      hostStats.appendChild(card);
+    });
+
+    if (host.uptime) {
+      const card = document.createElement('div');
+      card.className = 'host-card host-card-uptime';
+
+      const label = document.createElement('span');
+      label.className = 'host-card-label';
+      label.textContent = 'Uptime';
+
+      const value = document.createElement('span');
+      value.className = 'host-card-value';
+      value.textContent = host.uptime;
+
+      card.appendChild(label);
+      card.appendChild(value);
+      hostStats.appendChild(card);
+    }
+
+    if (!items.length && !host.uptime) {
+      hostStats.hidden = true;
+    }
   }
 
   function render(services, stale) {
@@ -76,10 +153,12 @@
       if (staleNotice) {
         staleNotice.hidden = !stale;
       }
+      renderHost(data.host, stale);
       render(data.services || [], stale);
     })
     .catch(() => {
       if (updatedEl) updatedEl.textContent = 'Status unavailable';
+      if (hostStats) hostStats.hidden = true;
       grid.innerHTML = '<p class="status-error">Couldn’t load status right now.</p>';
     });
 })();
