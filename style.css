@@ -488,6 +488,76 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 24px;
 }
 
+.host-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.host-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+}
+
+.host-card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.host-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.host-card-value {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.host-card-uptime {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.host-card-uptime .host-card-value {
+  font-size: 1.05rem;
+}
+
+.host-bar-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bg-alt);
+  overflow: hidden;
+}
+
+.host-bar {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.host-bar-low {
+  background: #22c55e;
+}
+
+.host-bar-mid {
+  background: #eab308;
+}
+
+.host-bar-high {
+  background: #ef4444;
+}
+
 .status-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
