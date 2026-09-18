@@ -19,7 +19,11 @@
     if (mins < 60) return mins + ' minutes ago';
     const hours = Math.round(mins / 60);
     if (hours === 1) return '1 hour ago';
-    return hours + ' hours ago';
+    if (hours < 48) return hours + ' hours ago';
+    const days = Math.round(hours / 24);
+    if (days === 1) return '1 day ago';
+    if (days < 60) return days + ' days ago';
+    return 'a long time ago';
   }
 
   function statusLabel(status) {
