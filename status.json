@@ -1,0 +1,10 @@
+{
+  "updated_at": "2000-01-01T00:00:00Z",
+  "services": [
+    {
+      "name": "Homelab Server",
+      "status": "unknown",
+      "latency_ms": null
+    }
+  ]
+}
