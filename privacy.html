@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Chris Duarte</title>
+<meta name="description" content="Privacy policy for chris-duarte.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="logo">chris<span class="accent">.</span>duarte</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="legal-content">
+    <a href="index.html" class="back-link">&larr; Back to site</a>
+    <h1>Privacy Policy</h1>
+    <p class="updated"><!-- EDIT ME: keep this current --> Last updated: September 2026</p>
+
+    <p>
+      This is a personal portfolio website. It's kept intentionally simple, and so is
+      this policy: I collect as little as possible, and nothing I don't need.
+    </p>
+
+    <h2>What this site does not do</h2>
+    <ul>
+      <li>No account creation or login</li>
+      <li>No forms that collect personal data</li>
+      <li>No analytics or advertising trackers</li>
+      <li>No selling or sharing of any data with third parties</li>
+    </ul>
+
+    <h2>What is collected</h2>
+    <p>
+      This site is hosted on GitHub Pages. Like virtually any web host, GitHub's servers
+      automatically log basic technical information for every visit &mdash; things like
+      IP address, browser type, and requested pages &mdash; for security and operational
+      purposes. I don't have access to detailed visitor logs beyond what GitHub Pages
+      provides, and I don't use that information for tracking or profiling.
+    </p>
+
+    <h2>Third-party services</h2>
+    <p>
+      This site loads fonts from Google Fonts (fonts.googleapis.com and fonts.gstatic.com).
+      Requesting a font causes your browser to contact Google's servers directly, which is
+      subject to <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's privacy policy</a>.
+      No other third-party services are embedded on this site.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      This site does not use cookies for tracking or advertising. See the
+      <a href="cookies.html">Cookie Policy</a> for details on the local storage used to
+      remember the cookie notice.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      Since this site doesn't collect personal data beyond standard hosting logs, there's
+      little to request access to or deletion of. If you have questions or concerns about
+      privacy on this site, feel free to reach out using the contact details on the
+      <a href="index.html#contact">Contact</a> section.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      This policy may be updated occasionally to reflect changes to the site. The "last
+      updated" date at the top will always reflect the most recent revision.
+    </p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> Chris Duarte. Built with HTML, CSS &amp; JS.</p>
+    <nav class="footer-links" aria-label="Legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="refund.html">Refund Policy</a>
+      <a href="cookies.html">Cookie Policy</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie notice" hidden>
+  <p>
+    This site doesn't use tracking or advertising cookies &mdash; just your
+    browser's local storage to remember you've seen this message.
+    <a href="cookies.html">Cookie Policy</a>
+  </p>
+  <button id="cookieAccept" class="btn btn-primary btn-small">Got it</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
