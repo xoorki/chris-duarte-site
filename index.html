@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chris Duarte</title>
+<meta name="description" content="Chris Duarte — Computer Science student, PC builder, and tinkerer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="#top" class="logo">chris<span class="accent">.</span>duarte</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section id="top" class="hero container">
+    <p class="eyebrow fade-in">Hey, I'm</p>
+    <h1 class="fade-in">Chris Duarte</h1>
+    <p class="hero-sub fade-in">
+      Computer Science student in Ireland. I build PCs, tinker with homelabs,
+      and mess around with code &mdash; and this site is where I put it all.
+    </p>
+    <div class="hero-actions fade-in">
+      <a href="#projects" class="btn btn-primary">See my projects</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </section>
+
+  <section id="about" class="section container">
+    <h2 class="section-title"><span class="tag">01</span> About Me</h2>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>
+          <!-- EDIT ME: swap in your own bio -->
+          I'm a Computer Science student based in Midleton, Ireland, currently
+          getting ready to start college. I've spent over a decade around PCs &mdash;
+          building, breaking, fixing, and reselling them &mdash; and I'm slowly turning
+          that hobby into something more structured, from running a small homelab
+          to picking up proper networking and Linux skills.
+        </p>
+        <p>
+          When I'm not elbow-deep in a case full of cables, I'm probably in a
+          ranked match, learning a bit of Portuguese, or prototyping a small
+          game or script just to see if I can get it working.
+        </p>
+      </div>
+      <div class="about-facts fade-in">
+        <div class="fact-card">
+          <h3>Based in</h3>
+          <p>Midleton, Ireland</p>
+        </div>
+        <div class="fact-card">
+          <h3>Focus</h3>
+          <p>Computer Science</p>
+        </div>
+        <div class="fact-card">
+          <h3>Currently</h3>
+          <p>Building a homelab</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills fade-in">
+      <span class="chip">Python</span>
+      <span class="chip">Lua</span>
+      <span class="chip">Linux</span>
+      <span class="chip">Networking</span>
+      <span class="chip">PC Hardware</span>
+      <span class="chip">Git &amp; GitHub</span>
+      <!-- EDIT ME: add / remove skills -->
+    </div>
+  </section>
+
+  <section id="projects" class="section container">
+    <h2 class="section-title"><span class="tag">02</span> Projects</h2>
+    <p class="section-sub">A few things I've built or been tinkering with. <!-- EDIT ME --></p>
+
+    <div class="projects-grid">
+
+      <article class="card fade-in">
+        <div class="card-top">
+          <span class="card-icon">🖥️</span>
+          <span class="card-tag">Hardware</span>
+        </div>
+        <h3>Custom PC Builds</h3>
+        <p>
+          Building and tuning custom PCs for gaming and everyday use &mdash;
+          from picking parts to troubleshooting BIOS, drivers, and cooling.
+          I've also flipped a few builds and parted-out systems for resale.
+        </p>
+        <div class="card-links">
+          <a href="#" class="card-link">View details &rarr;</a>
+        </div>
+      </article>
+
+      <article class="card fade-in">
+        <div class="card-top">
+          <span class="card-icon">🗄️</span>
+          <span class="card-tag">Homelab</span>
+        </div>
+        <h3>Home Lab Server</h3>
+        <p>
+          Repurposing a small form-factor PC into a home lab &mdash; learning
+          virtualization, basic networking, and self-hosting along the way.
+        </p>
+        <div class="card-links">
+          <a href="#" class="card-link">View details &rarr;</a>
+        </div>
+      </article>
+
+      <article class="card fade-in">
+        <div class="card-top">
+          <span class="card-icon">🎮</span>
+          <span class="card-tag">Game Dev</span>
+        </div>
+        <h3>Roblox Game Project</h3>
+        <p>
+          A game built in Roblox Studio using Lua &mdash; my first real dive
+          into scripting game logic and mechanics from scratch.
+        </p>
+        <div class="card-links">
+          <a href="#" class="card-link">View details &rarr;</a>
+        </div>
+      </article>
+
+      <article class="card fade-in">
+        <div class="card-top">
+          <span class="card-icon">🌐</span>
+          <span class="card-tag">Web</span>
+        </div>
+        <h3>This Website</h3>
+        <p>
+          My personal site &mdash; built with plain HTML, CSS, and JS, and
+          hosted on GitHub Pages with a custom domain.
+        </p>
+        <div class="card-links">
+          <a href="https://github.com/" target="_blank" rel="noopener" class="card-link">View source &rarr;</a>
+        </div>
+      </article>
+
+      <!-- EDIT ME: duplicate an <article class="card"> block above to add more projects -->
+
+    </div>
+  </section>
+
+  <section id="contact" class="section container">
+    <h2 class="section-title"><span class="tag">03</span> Contact</h2>
+    <div class="contact-box fade-in">
+      <p>Want to talk about a project, hardware builds, or anything else? I'm around.</p>
+      <div class="contact-links">
+        <a href="mailto:your.email@example.com" class="btn btn-primary">your.email@example.com</a>
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+        <!-- EDIT ME: swap in your real email + links (Discord, LinkedIn, etc.) -->
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> Chris Duarte. Built with HTML, CSS &amp; JS.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
