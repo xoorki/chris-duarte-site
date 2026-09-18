@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chris Duarte</title>
 <meta name="description" content="Chris Duarte — Computer Science student, PC builder, and tinkerer.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -34,7 +36,7 @@
     <p class="eyebrow fade-in">Hey, I'm</p>
     <h1 class="fade-in">Chris Duarte</h1>
     <p class="hero-sub fade-in">
-      Computer Science student in Ireland. I build PCs, tinker with homelabs,
+      Computer Science student. I build PCs, tinker with homelabs,
       and mess around with code &mdash; and this site is where I put it all.
     </p>
     <div class="hero-actions fade-in">
@@ -49,23 +51,19 @@
       <div class="about-text fade-in">
         <p>
           <!-- EDIT ME: swap in your own bio -->
-          I'm a Computer Science student based in Midleton, Ireland, currently
-          getting ready to start college. I've spent over a decade around PCs &mdash;
-          building, breaking, fixing, and reselling them &mdash; and I'm slowly turning
-          that hobby into something more structured, from running a small homelab
-          to picking up proper networking and Linux skills.
+          I'm a Computer Science student getting ready to start college.
+          I've spent over a decade around PCs &mdash; building, breaking, fixing,
+          and reselling them &mdash; and I'm slowly turning that hobby into
+          something more structured, from running a small homelab to picking
+          up proper networking and Linux skills.
         </p>
         <p>
           When I'm not elbow-deep in a case full of cables, I'm probably in a
-          ranked match, learning a bit of Portuguese, or prototyping a small
-          game or script just to see if I can get it working.
+          ranked match or writing small scripts just to see if I can get them
+          working.
         </p>
       </div>
       <div class="about-facts fade-in">
-        <div class="fact-card">
-          <h3>Based in</h3>
-          <p>Midleton, Ireland</p>
-        </div>
         <div class="fact-card">
           <h3>Focus</h3>
           <p>Computer Science</p>
@@ -74,12 +72,15 @@
           <h3>Currently</h3>
           <p>Building a homelab</p>
         </div>
+        <div class="fact-card">
+          <h3>Also into</h3>
+          <p>PC hardware &amp; gaming</p>
+        </div>
       </div>
     </div>
 
     <div class="skills fade-in">
       <span class="chip">Python</span>
-      <span class="chip">Lua</span>
       <span class="chip">Linux</span>
       <span class="chip">Networking</span>
       <span class="chip">PC Hardware</span>
@@ -127,21 +128,6 @@
 
       <article class="card fade-in">
         <div class="card-top">
-          <span class="card-icon">🎮</span>
-          <span class="card-tag">Game Dev</span>
-        </div>
-        <h3>Roblox Game Project</h3>
-        <p>
-          A game built in Roblox Studio using Lua &mdash; my first real dive
-          into scripting game logic and mechanics from scratch.
-        </p>
-        <div class="card-links">
-          <a href="#" class="card-link">View details &rarr;</a>
-        </div>
-      </article>
-
-      <article class="card fade-in">
-        <div class="card-top">
           <span class="card-icon">🌐</span>
           <span class="card-tag">Web</span>
         </div>
@@ -151,7 +137,7 @@
           hosted on GitHub Pages with a custom domain.
         </p>
         <div class="card-links">
-          <a href="https://github.com/" target="_blank" rel="noopener" class="card-link">View source &rarr;</a>
+          <a href="https://github.com/xoorki/chris-duarte-site" target="_blank" rel="noopener noreferrer" class="card-link">View source &rarr;</a>
         </div>
       </article>
 
@@ -166,7 +152,7 @@
       <p>Want to talk about a project, hardware builds, or anything else? I'm around.</p>
       <div class="contact-links">
         <a href="mailto:your.email@example.com" class="btn btn-primary">your.email@example.com</a>
-        <a href="https://github.com/yourusername" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+        <a href="https://github.com/xoorki" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GitHub</a>
         <!-- EDIT ME: swap in your real email + links (Discord, LinkedIn, etc.) -->
       </div>
     </div>
@@ -177,8 +163,23 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <p>&copy; <span id="year"></span> Chris Duarte. Built with HTML, CSS &amp; JS.</p>
+    <nav class="footer-links" aria-label="Legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="refund.html">Refund Policy</a>
+      <a href="cookies.html">Cookie Policy</a>
+    </nav>
   </div>
 </footer>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie notice" hidden>
+  <p>
+    This site doesn't use tracking or advertising cookies &mdash; just your
+    browser's local storage to remember you've seen this message.
+    <a href="cookies.html">Cookie Policy</a>
+  </p>
+  <button id="cookieAccept" class="btn btn-primary btn-small">Got it</button>
+</div>
 
 <script src="script.js"></script>
 </body>
