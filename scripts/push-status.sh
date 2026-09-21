@@ -23,7 +23,8 @@
 # 3. Install dependencies (Debian/Ubuntu):
 #      sudo apt install curl jq
 #
-# 4. Edit the SERVICES list below to match what's actually running.
+# 4. Edit the SERVICES list below to match what's actually running
+#    (host/port or URL for each — these are just examples).
 #
 # 5. Test it manually:
 #      bash push-status.sh
@@ -32,6 +33,9 @@
 # 6. Add it to cron to run every 5 minutes:
 #      crontab -e
 #      */5 * * * * /full/path/to/push-status.sh >> /var/log/push-status.log 2>&1
+#
+# CPU/memory/uptime are read straight from /proc, so no extra tools are
+# needed for those beyond bash itself (Linux only).
 
 set -euo pipefail
 
@@ -45,8 +49,13 @@ TOKEN=$(cat "$TOKEN_FILE")
 # One entry per line: "Display Name|type|target"
 #   type "tcp"  -> target is host:port          (e.g. 127.0.0.1:22)
 #   type "http" -> target is a full URL, counted "up" on any 2xx/3xx reply
+# EDIT ME: swap in your real hosts/ports/URLs once each service is running.
 SERVICES=(
-  "Homelab Server|tcp|127.0.0.1:22"
+  "Website|http|https://chris-duarte.com"
+  "Nextcloud|http|http://127.0.0.1:8080"
+  "Jellyfin|http|http://127.0.0.1:8096"
+  "Immich|http|http://127.0.0.1:2283"
+  "DNS|tcp|127.0.0.1:53"
 )
 # ------------------------------------
 
@@ -64,39 +73,68 @@ check_http() {
   [[ "$code" =~ ^[23] ]]
 }
 
-# ---- Host stats (CPU / memory / uptime) — best-effort, shown on the site
-#      as a small dashboard above the per-service list ----
-host_cpu_percent() {
-  read -r _ u1 n1 s1 i1 iw1 irq1 sirq1 st1 _ < /proc/stat
-  sleep 1
-  read -r _ u2 n2 s2 i2 iw2 irq2 sirq2 st2 _ < /proc/stat
-  local idle1=$((i1 + iw1)) idle2=$((i2 + iw2))
-  local total1=$((u1 + n1 + s1 + i1 + iw1 + irq1 + sirq1 + st1))
-  local total2=$((u2 + n2 + s2 + i2 + iw2 + irq2 + sirq2 + st2))
-  local totald=$((total2 - total1)) idled=$((idle2 - idle1))
-  [[ "$totald" -gt 0 ]] && echo $(( (100 * (totald - idled)) / totald ))
+# ---- Host stats (CPU %, memory %, uptime) ----
+# Reads straight from /proc — Linux only, no extra packages needed.
+
+get_cpu_percent() {
+  # Sample /proc/stat twice, ~0.3s apart, and compute % busy over that window.
+  local a b idle1 total1 idle2 total2
+  read -r _ a <<< "$(grep '^cpu ' /proc/stat)"
+  # shellcheck disable=SC2206
+  a=($a)
+  idle1=${a[3]}
+  total1=0
+  for v in "${a[@]}"; do total1=$((total1 + v)); done
+
+  sleep 0.3
+
+  read -r _ b <<< "$(grep '^cpu ' /proc/stat)"
+  # shellcheck disable=SC2206
+  b=($b)
+  idle2=${b[3]}
+  total2=0
+  for v in "${b[@]}"; do total2=$((total2 + v)); done
+
+  local idle_delta=$((idle2 - idle1))
+  local total_delta=$((total2 - total1))
+  if [[ "$total_delta" -le 0 ]]; then
+    echo "0"
+    return
+  fi
+  awk -v idle="$idle_delta" -v total="$total_delta" \
+    'BEGIN { printf "%.1f", (1 - idle/total) * 100 }'
 }
 
-host_mem_percent() {
-  free 2>/dev/null | awk '/^Mem:/ { printf "%.0f", ($2 - $7) / $2 * 100 }'
+get_mem_percent() {
+  local total avail
+  total=$(awk '/^MemTotal:/ {print $2}' /proc/meminfo)
+  avail=$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)
+  if [[ -z "$total" || -z "$avail" || "$total" -le 0 ]]; then
+    echo "0"
+    return
+  fi
+  awk -v total="$total" -v avail="$avail" \
+    'BEGIN { printf "%.1f", (1 - avail/total) * 100 }'
 }
 
-host_uptime() {
-  uptime -p 2>/dev/null | sed 's/^up //'
+get_uptime_str() {
+  local secs days hours mins
+  secs=$(awk '{print int($1)}' /proc/uptime)
+  days=$((secs / 86400))
+  hours=$(((secs % 86400) / 3600))
+  mins=$(((secs % 3600) / 60))
+  if [[ "$days" -gt 0 ]]; then
+    echo "${days}d ${hours}h"
+  elif [[ "$hours" -gt 0 ]]; then
+    echo "${hours}h ${mins}m"
+  else
+    echo "${mins}m"
+  fi
 }
 
-host_cpu=$(host_cpu_percent 2>/dev/null || true)
-host_mem=$(host_mem_percent 2>/dev/null || true)
-host_up=$(host_uptime 2>/dev/null || true)
-
-host_json=$(jq -n \
-  --arg cpu "${host_cpu:-}" \
-  --arg mem "${host_mem:-}" \
-  --arg uptime "${host_up:-}" \
-  '{}
-   + (if $cpu != "" then {cpu_percent: ($cpu | tonumber)} else {} end)
-   + (if $mem != "" then {mem_percent: ($mem | tonumber)} else {} end)
-   + (if $uptime != "" then {uptime: $uptime} else {} end)')
+cpu_percent=$(get_cpu_percent)
+mem_percent=$(get_mem_percent)
+uptime_str=$(get_uptime_str)
 
 services_json="[]"
 for entry in "${SERVICES[@]}"; do
@@ -123,8 +161,10 @@ updated_at=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 payload=$(jq -n \
   --arg updated_at "$updated_at" \
   --argjson services "$services_json" \
-  --argjson host "$host_json" \
-  '{updated_at:$updated_at, services:$services, host:$host}')
+  --argjson cpu_percent "$cpu_percent" \
+  --argjson mem_percent "$mem_percent" \
+  --arg uptime "$uptime_str" \
+  '{updated_at:$updated_at, host:{cpu_percent:$cpu_percent, mem_percent:$mem_percent, uptime:$uptime}, services:$services}')
 
 content_b64=$(printf '%s' "$payload" | base64 -w0)
 
