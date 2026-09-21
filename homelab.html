@@ -6,7 +6,7 @@
 <title>Homelab Status — Chris Duarte</title>
 <meta name="description" content="Live status dashboard for Chris Duarte's homelab.">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self' https://raw.githubusercontent.com; base-uri 'self'; frame-ancestors 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self' https://raw.githubusercontent.com; base-uri 'self'; form-action 'none'; object-src 'none'">
 <link rel="canonical" href="https://chris-duarte.com/homelab.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="theme-color" content="#0a0e14">
@@ -30,6 +30,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="homelab.html">Homelab</a></li>
       <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
     </ul>
   </nav>
@@ -40,7 +41,7 @@
     <a href="index.html#projects" class="back-link">&larr; Back to projects</a>
 
     <div class="dashboard-head">
-      <h1>Homelab Status</h1>
+      <h1>Homelab</h1>
       <span class="live-indicator">
         <span class="live-dot" id="liveDot"></span>
         <span id="statusUpdated">Loading status&hellip;</span>
@@ -141,8 +142,16 @@
     <div class="pill-row" id="pillRow"></div>
     <div class="status-grid" id="statusGrid"></div>
 
+    <h2 class="dashboard-subhead">Hardware</h2>
+    <dl class="spec-list">
+      <div><dt>Rack</dt><dd>GeekPi T1</dd></div>
+      <div><dt>Server</dt><dd>HP EliteDesk G7</dd></div>
+      <div><dt>Memory</dt><dd>16 GB RAM</dd></div>
+      <div><dt>Boot drive</dt><dd>256 GB SSD</dd></div>
+      <div><dt>Storage</dt><dd>4 TB HDD</dd></div>
+    </dl>
+
     <p class="homelab-note">
-      <!-- EDIT ME: say as much or as little about the hardware as you want -->
       This tracks services running on my homelab, a small home server I'm
       building out and learning on. The homelab pushes its own status out
       every few minutes, along with a rolling few hours of CPU and memory

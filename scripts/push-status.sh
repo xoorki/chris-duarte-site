@@ -43,7 +43,32 @@ REPO="xoorki/chris-duarte-site"
 BRANCH="status-data"
 FILE_PATH="status.json"
 TOKEN_FILE="$HOME/.github-status-token"
+
+if [[ ! -f "$TOKEN_FILE" ]]; then
+  echo "No token file at $TOKEN_FILE — see the setup notes at the top." >&2
+  exit 1
+fi
+
+# A token any other account on the box can read is a token you have to assume
+# is shared, so refuse to use one that isn't owner-only.
+token_mode=$(stat -c '%a' "$TOKEN_FILE")
+if [[ "${token_mode: -2}" != "00" ]]; then
+  echo "$TOKEN_FILE is mode $token_mode — readable by others." >&2
+  echo "Run: chmod 600 $TOKEN_FILE" >&2
+  exit 1
+fi
+
 TOKEN=$(cat "$TOKEN_FILE")
+
+# Anything passed as a command-line argument is visible in the process list
+# to every user on the machine, so the token is handed to curl over stdin as
+# a config file instead of with -H.
+gh_api() {
+  curl -s --config - "$@" <<-CFG
+	header = "Authorization: Bearer ${TOKEN}"
+	header = "Accept: application/vnd.github+json"
+	CFG
+}
 
 # ---- Define what to check here ----
 # One entry per line: "Display Name|type|target"
@@ -63,13 +88,17 @@ check_tcp() {
   local target="$1"
   local host="${target%%:*}"
   local port="${target##*:}"
-  timeout 3 bash -c "cat < /dev/null > /dev/tcp/${host}/${port}" 2>/dev/null
+  # Host and port go in as arguments rather than being pasted into the
+  # command string, so a stray character in SERVICES can't become a command.
+  timeout 3 bash -c 'cat < /dev/null > /dev/tcp/"$1"/"$2"' _ "$host" "$port" 2>/dev/null
 }
 
 check_http() {
   local url="$1"
   local code
-  code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "$url" || echo "000")
+  # --proto keeps a typo'd entry from turning into a file:// or scp:// fetch.
+  code=$(curl -s -o /dev/null -w "%{http_code}" --proto '=http,https' \
+    --max-time 5 "$url" || echo "000")
   [[ "$code" =~ ^[23] ]]
 }
 
@@ -163,10 +192,7 @@ updated_at=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 # and its history array is what the trend charts on the site are drawn from —
 # keeping the history here means every visitor sees a real graph on first
 # load, instead of each browser having to build one up from scratch.
-existing=$(curl -s \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Accept: application/vnd.github+json" \
-  "https://api.github.com/repos/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}")
+existing=$(gh_api "https://api.github.com/repos/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}")
 
 sha=$(jq -r '.sha // empty' <<< "$existing" 2>/dev/null || true)
 
@@ -213,8 +239,6 @@ else
     '{message:$message, content:$content, branch:$branch}')
 fi
 
-curl -s -X PUT \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Accept: application/vnd.github+json" \
+gh_api -X PUT \
   "https://api.github.com/repos/${REPO}/contents/${FILE_PATH}" \
   -d "$body" > /dev/null

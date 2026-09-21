@@ -1,3 +1,17 @@
+// GitHub Pages can't send an X-Frame-Options or frame-ancestors header, and
+// frame-ancestors is ignored when it comes from a <meta> CSP, so this is the
+// only clickjacking defence a purely static site has: if the page finds
+// itself inside someone else's frame, it takes the top window with it.
+if (window.top !== window.self) {
+  try {
+    window.top.location = window.self.location.href;
+  } catch (e) {
+    // Cross-origin parent won't let us navigate it — blank the page instead
+    // so there's nothing left worth framing.
+    document.documentElement.textContent = '';
+  }
+}
+
 // Mobile nav toggle
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
