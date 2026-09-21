@@ -158,23 +158,45 @@ for entry in "${SERVICES[@]}"; do
 done
 
 updated_at=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+# Fetch the current status.json once. Its SHA is needed to update the file,
+# and its history array is what the trend charts on the site are drawn from —
+# keeping the history here means every visitor sees a real graph on first
+# load, instead of each browser having to build one up from scratch.
+existing=$(curl -s \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Accept: application/vnd.github+json" \
+  "https://api.github.com/repos/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}")
+
+sha=$(jq -r '.sha // empty' <<< "$existing" 2>/dev/null || true)
+
+# Roughly the last 4 hours, at the suggested 5-minute cron interval.
+prev_history='[]'
+encoded_prev=$(jq -r '.content // empty' <<< "$existing" 2>/dev/null || true)
+if [[ -n "$encoded_prev" ]]; then
+  decoded_prev=$(printf '%s' "$encoded_prev" | tr -d '\n' | base64 -d 2>/dev/null || true)
+  if [[ -n "$decoded_prev" ]]; then
+    prev_history=$(jq -c '.history // []' <<< "$decoded_prev" 2>/dev/null || echo '[]')
+  fi
+fi
+
+history_json=$(jq -n \
+  --argjson prev "$prev_history" \
+  --arg t "$updated_at" \
+  --argjson cpu "$cpu_percent" \
+  --argjson mem "$mem_percent" \
+  '($prev + [{t: $t, cpu: $cpu, mem: $mem}])[-48:]')
+
 payload=$(jq -n \
   --arg updated_at "$updated_at" \
   --argjson services "$services_json" \
   --argjson cpu_percent "$cpu_percent" \
   --argjson mem_percent "$mem_percent" \
   --arg uptime "$uptime_str" \
-  '{updated_at:$updated_at, host:{cpu_percent:$cpu_percent, mem_percent:$mem_percent, uptime:$uptime}, services:$services}')
+  --argjson history "$history_json" \
+  '{updated_at:$updated_at, host:{cpu_percent:$cpu_percent, mem_percent:$mem_percent, uptime:$uptime}, services:$services, history:$history}')
 
 content_b64=$(printf '%s' "$payload" | base64 -w0)
-
-# Look up the current file's SHA on the status-data branch (needed to update
-# an existing file; harmless if the file doesn't exist yet).
-sha=$(curl -s \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Accept: application/vnd.github+json" \
-  "https://api.github.com/repos/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}" \
-  | jq -r '.sha // empty')
 
 if [[ -n "$sha" ]]; then
   body=$(jq -n \
