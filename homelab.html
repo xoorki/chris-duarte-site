@@ -47,13 +47,20 @@
       </span>
     </div>
 
+    <div class="demo-notice" id="demoNotice" role="status" hidden>
+      <strong>Sample data.</strong> The homelab isn't built yet, so this page
+      is showing made-up numbers to demonstrate the layout &mdash; none of it
+      is real. It switches to live data on its own as soon as the actual
+      server starts reporting in.
+    </div>
+
     <div class="stale-notice" id="staleNotice" role="status" hidden>
       This data hasn't updated recently. The homelab may be offline, or
       just isn't reporting in right now, so statuses below are shown as
       unknown until it checks back in.
     </div>
 
-    <div class="stat-strip">
+    <div class="stat-strip" aria-live="polite">
       <div class="stat-tile" id="tileStatus">
         <span class="stat-tile-label">Status</span>
         <span class="stat-tile-value" id="tileStatusValue">&mdash;</span>
@@ -62,58 +69,70 @@
         <span class="stat-tile-label">Uptime</span>
         <span class="stat-tile-value" id="tileUptimeValue">&mdash;</span>
       </div>
-      <div class="stat-tile" id="tileCpu">
-        <span class="stat-tile-label">CPU</span>
-        <span class="stat-tile-value" id="tileCpuValue">&mdash;</span>
-      </div>
-      <div class="stat-tile" id="tileMem">
-        <span class="stat-tile-label">Memory</span>
-        <span class="stat-tile-value" id="tileMemValue">&mdash;</span>
-      </div>
       <div class="stat-tile" id="tileServices">
         <span class="stat-tile-label">Services</span>
         <span class="stat-tile-value" id="tileServicesValue">&mdash;</span>
       </div>
+      <div class="stat-tile" id="tileLatency">
+        <span class="stat-tile-label">Response</span>
+        <span class="stat-tile-value" id="tileLatencyValue">&mdash;</span>
+      </div>
     </div>
 
-    <div class="gauge-grid">
-      <div class="gauge-panel">
-        <div class="gauge-panel-head">
-          <span class="gauge-panel-label">CPU</span>
-          <span class="gauge-panel-state" id="cpuState">&mdash;</span>
+    <div class="metric-grid">
+      <div class="metric-panel">
+        <div class="metric-head">
+          <span class="metric-label">CPU</span>
+          <span class="metric-state" id="cpuState">&mdash;</span>
         </div>
-        <div class="gauge-wrap">
-          <svg viewBox="0 0 150 150" class="gauge-svg">
+        <div class="metric-body">
+          <svg viewBox="0 0 150 150" class="gauge-svg" role="img" aria-labelledby="cpuGaugeTitle">
+            <title id="cpuGaugeTitle">Current CPU usage</title>
             <circle class="gauge-track" cx="75" cy="75" r="58"></circle>
             <circle class="gauge-arc" id="cpuArc" cx="75" cy="75" r="58" transform="rotate(-90 75 75)"></circle>
             <text class="gauge-value" id="cpuValue" x="75" y="82" text-anchor="middle">&mdash;</text>
           </svg>
-        </div>
-        <div class="sparkline-wrap">
-          <svg viewBox="0 0 200 40" class="sparkline-svg" preserveAspectRatio="none">
-            <polyline id="cpuSpark" class="sparkline-line" points=""></polyline>
-          </svg>
-          <p class="sparkline-caption" id="cpuSparkCaption">Collecting data&hellip;</p>
+          <div class="trend">
+            <svg viewBox="0 0 200 64" class="trend-svg" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="cpuGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#4fd6c4" stop-opacity="0.35"></stop>
+                  <stop offset="100%" stop-color="#4fd6c4" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+              <path class="trend-area" id="cpuArea" d="" fill="url(#cpuGrad)"></path>
+              <path class="trend-line" id="cpuLine" d="" vector-effect="non-scaling-stroke"></path>
+            </svg>
+            <p class="trend-caption" id="cpuCaption">No history yet</p>
+          </div>
         </div>
       </div>
 
-      <div class="gauge-panel">
-        <div class="gauge-panel-head">
-          <span class="gauge-panel-label">Memory</span>
-          <span class="gauge-panel-state" id="memState">&mdash;</span>
+      <div class="metric-panel">
+        <div class="metric-head">
+          <span class="metric-label">Memory</span>
+          <span class="metric-state" id="memState">&mdash;</span>
         </div>
-        <div class="gauge-wrap">
-          <svg viewBox="0 0 150 150" class="gauge-svg">
+        <div class="metric-body">
+          <svg viewBox="0 0 150 150" class="gauge-svg" role="img" aria-labelledby="memGaugeTitle">
+            <title id="memGaugeTitle">Current memory usage</title>
             <circle class="gauge-track" cx="75" cy="75" r="58"></circle>
             <circle class="gauge-arc" id="memArc" cx="75" cy="75" r="58" transform="rotate(-90 75 75)"></circle>
             <text class="gauge-value" id="memValue" x="75" y="82" text-anchor="middle">&mdash;</text>
           </svg>
-        </div>
-        <div class="sparkline-wrap">
-          <svg viewBox="0 0 200 40" class="sparkline-svg" preserveAspectRatio="none">
-            <polyline id="memSpark" class="sparkline-line" points=""></polyline>
-          </svg>
-          <p class="sparkline-caption" id="memSparkCaption">Collecting data&hellip;</p>
+          <div class="trend">
+            <svg viewBox="0 0 200 64" class="trend-svg" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="memGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7c8cff" stop-opacity="0.35"></stop>
+                  <stop offset="100%" stop-color="#7c8cff" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+              <path class="trend-area" id="memArea" d="" fill="url(#memGrad)"></path>
+              <path class="trend-line" id="memLine" d="" vector-effect="non-scaling-stroke"></path>
+            </svg>
+            <p class="trend-caption" id="memCaption">No history yet</p>
+          </div>
         </div>
       </div>
     </div>
@@ -125,11 +144,10 @@
     <p class="homelab-note">
       <!-- EDIT ME: say as much or as little about the hardware as you want -->
       This tracks services running on my homelab, a small home server I'm
-      building out and learning on. Status here is pushed out by the homelab
-      itself every few minutes and this page re-polls it every 30 seconds.
-      Nothing on it is reachable from the outside; this page just shows
-      whether things are up. The little CPU/memory charts are built live
-      from polls made in your browser this session, not a stored history.
+      building out and learning on. The homelab pushes its own status out
+      every few minutes, along with a rolling few hours of CPU and memory
+      samples that the charts above are drawn from. Nothing on it is
+      reachable from the outside; this page only shows whether things are up.
     </p>
   </div>
 </main>

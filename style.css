@@ -580,6 +580,20 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 24px;
 }
 
+.demo-notice {
+  background: rgba(124, 140, 255, 0.1);
+  border: 1px solid rgba(124, 140, 255, 0.4);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.demo-notice strong {
+  color: var(--accent);
+}
+
 /* Stat strip */
 .stat-strip {
   display: grid;
@@ -622,29 +636,29 @@ a { color: inherit; text-decoration: none; }
 .stat-tile.level-neutral { border-top-color: var(--accent); }
 .stat-tile.level-neutral .stat-tile-value { color: var(--accent); }
 
-/* Gauges */
-.gauge-grid {
+/* Metric panels: gauge for "right now", chart for the trend behind it */
+.metric-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin-bottom: 20px;
 }
 
-.gauge-panel {
+.metric-panel {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 22px 24px;
+  padding: 20px 22px;
 }
 
-.gauge-panel-head {
+.metric-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
-.gauge-panel-label {
+.metric-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
   text-transform: uppercase;
@@ -652,20 +666,22 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-dim);
 }
 
-.gauge-panel-state {
+.metric-state {
   font-size: 0.82rem;
   color: var(--text-dim);
 }
 
-.gauge-wrap {
-  display: flex;
-  justify-content: center;
-  margin: 8px 0;
+.metric-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 18px;
 }
 
 .gauge-svg {
-  width: 150px;
-  height: 150px;
+  width: 118px;
+  height: 118px;
+  flex-shrink: 0;
 }
 
 .gauge-track {
@@ -693,17 +709,19 @@ a { color: inherit; text-decoration: none; }
   fill: var(--text);
 }
 
-.sparkline-wrap {
-  margin-top: 12px;
+.trend {
+  min-width: 0;
 }
 
-.sparkline-svg {
+.trend-svg {
   width: 100%;
-  height: 40px;
+  height: 64px;
   display: block;
+  background: rgba(10, 14, 20, 0.35);
+  border-radius: 8px;
 }
 
-.sparkline-line {
+.trend-line {
   fill: none;
   stroke: var(--accent-2);
   stroke-width: 2;
@@ -711,8 +729,12 @@ a { color: inherit; text-decoration: none; }
   stroke-linejoin: round;
 }
 
-.sparkline-caption {
-  margin: 6px 0 0;
+#memLine {
+  stroke: var(--accent);
+}
+
+.trend-caption {
+  margin: 8px 0 0;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
   color: var(--text-dim);
@@ -832,5 +854,12 @@ a { color: inherit; text-decoration: none; }
 
   .about-grid { grid-template-columns: 1fr; }
   .projects-grid { grid-template-columns: 1fr; }
-  .gauge-grid { grid-template-columns: 1fr; }
+  .metric-grid { grid-template-columns: 1fr; }
+
+  .metric-body {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .trend { width: 100%; }
 }
