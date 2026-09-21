@@ -7,6 +7,16 @@
 <meta name="description" content="Chris Duarte — Computer Science student, PC builder, and tinkerer.">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'">
+<link rel="canonical" href="https://chris-duarte.com/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#0a0e14">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chris Duarte">
+<meta property="og:description" content="Computer Science student, PC builder, and tinkerer.">
+<meta property="og:url" content="https://chris-duarte.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chris Duarte">
+<meta name="twitter:description" content="Computer Science student, PC builder, and tinkerer.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,6 +25,8 @@
 <body>
 
 <div class="bg-glow"></div>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <header class="site-header">
   <nav class="nav container">
@@ -30,16 +42,16 @@
   </nav>
 </header>
 
-<main>
+<main id="main-content">
 
   <section id="top" class="hero container">
-    <p class="eyebrow fade-in">Hey, I'm</p>
-    <h1 class="fade-in">Chris Duarte</h1>
-    <p class="hero-sub fade-in">
-      Computer Science student. I build PCs, tinker with homelabs,
-      and mess around with code &mdash; and this site is where I put it all.
+    <p class="eyebrow">Hey, I'm</p>
+    <h1>Chris Duarte</h1>
+    <p class="hero-sub">
+      Computer Science student. I build PCs, tinker with homelabs, and
+      mess around with code. This site is where I put it all.
     </p>
-    <div class="hero-actions fade-in">
+    <div class="hero-actions">
       <a href="#projects" class="btn btn-primary">See my projects</a>
       <a href="#contact" class="btn btn-ghost">Get in touch</a>
     </div>
@@ -48,14 +60,14 @@
   <section id="about" class="section container">
     <h2 class="section-title"><span class="tag">01</span> About Me</h2>
     <div class="about-grid">
-      <div class="about-text fade-in">
+      <div class="about-text">
         <p>
           <!-- EDIT ME: swap in your own bio -->
           I'm a Computer Science student getting ready to start college.
-          I've spent over a decade around PCs &mdash; building, breaking, fixing,
-          and reselling them &mdash; and I'm slowly turning that hobby into
-          something more structured, from running a small homelab to picking
-          up proper networking and Linux skills.
+          I've spent over a decade around PCs: building them, breaking them,
+          fixing them, and reselling a few along the way. Lately I've been
+          turning that into something more structured, running a small
+          homelab and picking up real networking and Linux skills.
         </p>
         <p>
           When I'm not elbow-deep in a case full of cables, I'm probably in a
@@ -63,7 +75,7 @@
           working.
         </p>
       </div>
-      <div class="about-facts fade-in">
+      <div class="about-facts">
         <div class="fact-card">
           <h3>Focus</h3>
           <p>Computer Science</p>
@@ -79,7 +91,7 @@
       </div>
     </div>
 
-    <div class="skills fade-in">
+    <div class="skills">
       <span class="chip">Python</span>
       <span class="chip">Linux</span>
       <span class="chip">Networking</span>
@@ -95,46 +107,47 @@
 
     <div class="projects-grid">
 
-      <article class="card fade-in">
+      <article class="card">
         <div class="card-top">
-          <span class="card-icon">🖥️</span>
+          <span class="card-mark">01</span>
           <span class="card-tag">Hardware</span>
         </div>
         <h3>Custom PC Builds</h3>
         <p>
-          Building and tuning custom PCs for gaming and everyday use &mdash;
-          from picking parts to troubleshooting BIOS, drivers, and cooling.
-          I've also flipped a few builds and parted-out systems for resale.
+          Picking parts, troubleshooting BIOS settings, and tuning cooling
+          and drivers to build and dial in custom PCs for gaming and
+          everyday use. I've also flipped a few builds and parted-out
+          systems for resale.
         </p>
         <div class="card-links">
           <a href="#" class="card-link">View details &rarr;</a>
         </div>
       </article>
 
-      <article class="card fade-in">
+      <article class="card">
         <div class="card-top">
-          <span class="card-icon">🗄️</span>
+          <span class="card-mark">02</span>
           <span class="card-tag">Homelab</span>
         </div>
         <h3>Home Lab Server</h3>
         <p>
-          Repurposing a small form-factor PC into a home lab &mdash; learning
-          virtualization, basic networking, and self-hosting along the way.
+          Repurposing a small form-factor PC into a home lab, and using it
+          to learn virtualization, basic networking, and self-hosting.
         </p>
         <div class="card-links">
           <a href="homelab.html" class="card-link">View live status &rarr;</a>
         </div>
       </article>
 
-      <article class="card fade-in">
+      <article class="card">
         <div class="card-top">
-          <span class="card-icon">🌐</span>
+          <span class="card-mark">03</span>
           <span class="card-tag">Web</span>
         </div>
         <h3>This Website</h3>
         <p>
-          My personal site &mdash; built with plain HTML, CSS, and JS, and
-          hosted on GitHub Pages with a custom domain.
+          My personal site, built with plain HTML, CSS, and JS and hosted
+          on GitHub Pages with a custom domain.
         </p>
         <div class="card-links">
           <a href="https://github.com/xoorki/chris-duarte-site" target="_blank" rel="noopener noreferrer" class="card-link">View source &rarr;</a>
@@ -148,7 +161,7 @@
 
   <section id="contact" class="section container">
     <h2 class="section-title"><span class="tag">03</span> Contact</h2>
-    <div class="contact-box fade-in">
+    <div class="contact-box">
       <p>Want to talk about a project, hardware builds, or anything else? I'm around.</p>
       <div class="contact-links">
         <a href="mailto:your.email@example.com" class="btn btn-primary">your.email@example.com</a>
@@ -174,7 +187,7 @@
 
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie notice" hidden>
   <p>
-    This site doesn't use tracking or advertising cookies &mdash; just your
+    This site doesn't use tracking or advertising cookies. It just uses your
     browser's local storage to remember you've seen this message.
     <a href="cookies.html">Cookie Policy</a>
   </p>
