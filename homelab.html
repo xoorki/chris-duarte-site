@@ -36,10 +36,16 @@
 </header>
 
 <main id="main-content">
-  <div class="legal-content">
+  <div class="dashboard">
     <a href="index.html#projects" class="back-link">&larr; Back to projects</a>
-    <h1>Homelab Status</h1>
-    <p class="status-updated" id="statusUpdated">Loading status&hellip;</p>
+
+    <div class="dashboard-head">
+      <h1>Homelab Status</h1>
+      <span class="live-indicator">
+        <span class="live-dot" id="liveDot"></span>
+        <span id="statusUpdated">Loading status&hellip;</span>
+      </span>
+    </div>
 
     <div class="stale-notice" id="staleNotice" role="status" hidden>
       This data hasn't updated recently. The homelab may be offline, or
@@ -47,16 +53,83 @@
       unknown until it checks back in.
     </div>
 
-    <div class="host-stats" id="hostStats" hidden></div>
+    <div class="stat-strip">
+      <div class="stat-tile" id="tileStatus">
+        <span class="stat-tile-label">Status</span>
+        <span class="stat-tile-value" id="tileStatusValue">&mdash;</span>
+      </div>
+      <div class="stat-tile" id="tileUptime">
+        <span class="stat-tile-label">Uptime</span>
+        <span class="stat-tile-value" id="tileUptimeValue">&mdash;</span>
+      </div>
+      <div class="stat-tile" id="tileCpu">
+        <span class="stat-tile-label">CPU</span>
+        <span class="stat-tile-value" id="tileCpuValue">&mdash;</span>
+      </div>
+      <div class="stat-tile" id="tileMem">
+        <span class="stat-tile-label">Memory</span>
+        <span class="stat-tile-value" id="tileMemValue">&mdash;</span>
+      </div>
+      <div class="stat-tile" id="tileServices">
+        <span class="stat-tile-label">Services</span>
+        <span class="stat-tile-value" id="tileServicesValue">&mdash;</span>
+      </div>
+    </div>
 
+    <div class="gauge-grid">
+      <div class="gauge-panel">
+        <div class="gauge-panel-head">
+          <span class="gauge-panel-label">CPU</span>
+          <span class="gauge-panel-state" id="cpuState">&mdash;</span>
+        </div>
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 150 150" class="gauge-svg">
+            <circle class="gauge-track" cx="75" cy="75" r="58"></circle>
+            <circle class="gauge-arc" id="cpuArc" cx="75" cy="75" r="58" transform="rotate(-90 75 75)"></circle>
+            <text class="gauge-value" id="cpuValue" x="75" y="82" text-anchor="middle">&mdash;</text>
+          </svg>
+        </div>
+        <div class="sparkline-wrap">
+          <svg viewBox="0 0 200 40" class="sparkline-svg" preserveAspectRatio="none">
+            <polyline id="cpuSpark" class="sparkline-line" points=""></polyline>
+          </svg>
+          <p class="sparkline-caption" id="cpuSparkCaption">Collecting data&hellip;</p>
+        </div>
+      </div>
+
+      <div class="gauge-panel">
+        <div class="gauge-panel-head">
+          <span class="gauge-panel-label">Memory</span>
+          <span class="gauge-panel-state" id="memState">&mdash;</span>
+        </div>
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 150 150" class="gauge-svg">
+            <circle class="gauge-track" cx="75" cy="75" r="58"></circle>
+            <circle class="gauge-arc" id="memArc" cx="75" cy="75" r="58" transform="rotate(-90 75 75)"></circle>
+            <text class="gauge-value" id="memValue" x="75" y="82" text-anchor="middle">&mdash;</text>
+          </svg>
+        </div>
+        <div class="sparkline-wrap">
+          <svg viewBox="0 0 200 40" class="sparkline-svg" preserveAspectRatio="none">
+            <polyline id="memSpark" class="sparkline-line" points=""></polyline>
+          </svg>
+          <p class="sparkline-caption" id="memSparkCaption">Collecting data&hellip;</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="dashboard-subhead">Services</h2>
+    <div class="pill-row" id="pillRow"></div>
     <div class="status-grid" id="statusGrid"></div>
 
     <p class="homelab-note">
       <!-- EDIT ME: say as much or as little about the hardware as you want -->
       This tracks services running on my homelab, a small home server I'm
       building out and learning on. Status here is pushed out by the homelab
-      itself every few minutes. Nothing on it is reachable from the outside;
-      this page just shows whether things are up.
+      itself every few minutes and this page re-polls it every 30 seconds.
+      Nothing on it is reachable from the outside; this page just shows
+      whether things are up. The little CPU/memory charts are built live
+      from polls made in your browser this session, not a stored history.
     </p>
   </div>
 </main>
