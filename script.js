@@ -1,7 +1,3 @@
-// Marks that JS is running, so the fade-in CSS only hides content when
-// something will actually reveal it again (see .js-fade-ready in style.css).
-document.documentElement.classList.add('js-fade-ready');
-
 // Mobile nav toggle
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
@@ -19,21 +15,6 @@ if (navToggle && navLinks) {
     });
   });
 }
-
-// Scroll fade-in animation
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
-
-document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
 
 // Footer year
 const yearEl = document.getElementById('year');
